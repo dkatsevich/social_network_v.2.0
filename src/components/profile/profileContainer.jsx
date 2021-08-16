@@ -12,65 +12,42 @@ import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 import {getProfileThunk} from "../../redux/reducers/profileReducer";
 import {withRouter} from "react-router-dom";
-import * as PropTypes from "prop-types";
 
-class ProfileContainer extends React.Component {
+const ProfileContainer = ({loading, aboutMe, contacts,
+                              fullName, lookingForAJob, lookingForAJobDescription, photos,
+                              match, id, getProfileThunk}) => {
 
-    refreshProfile = () => {
-        const {match, id, getProfileThunk} = this.props
+    const refreshProfile = () => {
         let userId = match.params.userId;
         if (!userId) userId = id;
         getProfileThunk(userId);
     }
 
-    componentDidMount() {
-        this.refreshProfile();
-    }
+    useEffect(() => {
+        refreshProfile()
+        debugger
+    }, [match.params.userId])
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.userId !== this.props.match.params.userId) {
-            this.refreshProfile();
-        }
-    }
 
-    render() {
-        const {
-            loading, aboutMe, contacts,
-            fullName, lookingForAJob, lookingForAJobDescription, photos
-        } = this.props;
+    if (loading) return <Spinner/>
 
-        if (loading) return <Spinner/>
-
-        return (
-            <div className='profile'>
-                <div className='profile__bg-img'>
-                    <img src={profileBg} alt="profileBg"/>
-                </div>
-                <ProfleInfo aboutMe={aboutMe}
-                            contacts={contacts}
-                            fullName={fullName}
-                            lookingForAJob={lookingForAJob}
-                            lookingForAJobDescription={lookingForAJobDescription}
-                            photos={photos}
-                />
-                <ProfilePosts/>
+    return (
+        <div className='profile'>
+            <div className='profile__bg-img'>
+                <img src={profileBg} alt="profileBg"/>
             </div>
-        )
-    }
+            <ProfleInfo aboutMe={aboutMe}
+                        contacts={contacts}
+                        fullName={fullName}
+                        lookingForAJob={lookingForAJob}
+                        lookingForAJobDescription={lookingForAJobDescription}
+                        photos={photos}
+            />
+            <ProfilePosts/>
+        </div>
+    )
 }
 
-ProfileContainer.propTypes = {
-    loading: PropTypes.any,
-    match: PropTypes.any,
-    id: PropTypes.any,
-    getProfileThunk: PropTypes.any,
-    aboutMe: PropTypes.any,
-    contacts: PropTypes.any,
-    fullName: PropTypes.any,
-    lookingForAJob: PropTypes.any,
-    lookingForAJobDescription: PropTypes.any,
-    photos: PropTypes.any
-}
 
 const mapStateToProps = (
     {
