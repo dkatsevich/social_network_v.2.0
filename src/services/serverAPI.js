@@ -8,6 +8,12 @@ const instance = axios.create({
     }
 });
 
+const ProfileAPI = {
+    getProfile(id) {
+        return instance.get(`/profile/${id}`);
+    }
+}
+
 
 const AuthAPI = {
     authMe() {
@@ -28,6 +34,7 @@ const SecurityAPI = {
 }
 
 export {
+    ProfileAPI,
     AuthAPI,
     SecurityAPI,
 }

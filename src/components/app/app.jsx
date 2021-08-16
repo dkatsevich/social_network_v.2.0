@@ -30,7 +30,7 @@ class App extends React.Component {
                 <NavBar/>
                 <div className='content'>
                     <Route exact path='/' render={() => <div>H</div>}/>
-                    <Route path='/profile' component={ProfileContainer}/>
+                    <Route path='/profile/:userId?' component={ProfileContainer}/>
                     <Route path='/login' component={Login}/>
                 </div>
             </div>

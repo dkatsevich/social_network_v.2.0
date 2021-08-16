@@ -1,20 +1,18 @@
 import avatar from './../../images/profile_bg.jpg'
 
-const ProfleInfo = () => {
+const ProfleInfo = ({aboutMe, contacts, fullName, lookingForAJob, lookingForAJobDescription, photos}) => {
     return (
         <div className='profile-info'>
             <div className="profile-info__avatar">
-                <img src={avatar} alt=""/>
+                <img src={photos.large} alt=""/>
             </div>
             <div className="profile-info__content">
-                <div className="profile-info__name">Samurai Dimych</div>
-                <div className="profile-info__aboutme">I am cool man</div>
+                <div className="profile-info__name">{fullName}</div>
+                <div className="profile-info__aboutme">{aboutMe}</div>
                 <ul className="profile-info__contacts">
-                    <li className="profile-info__contact">facebook: facebook.com</li>
-                    <li className="profile-info__contact">facebook: facebook.com</li>
-                    <li className="profile-info__contact">facebook: facebook.com</li>
-                    <li className="profile-info__contact">facebook: facebook.com</li>
-                    <li className="profile-info__contact">facebook: facebook.com</li>
+                    {Object.keys(contacts).map(item => {
+                        return <li className="profile-info__contact">{item}: {contacts[item]}</li>
+                    })}
                 </ul>
             </div>
             <div className="profile-info__status">
