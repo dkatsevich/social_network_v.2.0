@@ -1,0 +1,43 @@
+import React from 'react';
+import me from './../../../images/friend1.png';
+import './messages.scss';
+import {connect} from "react-redux";
+import AddMessageForm from "./messagesForm/messagesForm";
+import {postMessage} from "../../../redux/reducers/messageReducer";
+
+const Messages = ({messages, postMessage}) => {
+
+    const items = messages.map(message => {
+        const {id, body, address, name} = message;
+
+        return (
+            <div key={id} className={`message message-${address}`}>
+                <div className="message__user">
+                    <img src={me} alt=""/>
+                    <div className="message__user-name">{name}</div>
+                </div>
+                <div className="message__content">{body}
+                </div>
+            </div>
+        )
+    })
+
+    const addMessage = (data) => {
+        postMessage(data.message);
+    }
+
+    return (
+        <div className="messages">
+            {items}
+            <AddMessageForm onSubmit={addMessage}/>
+        </div>
+    )
+}
+
+const mapStateToProps = ({messageReducer: {messages}}) => ({messages});
+const actions = {
+    postMessage
+}
+
+
+export default connect(mapStateToProps, actions)(Messages);
