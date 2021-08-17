@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 
-import ProfleInfo from "./profleInfo";
+import ProfleUser from "./profileUser";
 import ProfilePosts from "./profilePosts";
 
 import './profileContainer.scss'
@@ -15,10 +15,9 @@ import {withRouter} from "react-router-dom";
 
 const ProfileContainer =
     ({
-         loading, aboutMe, contacts,
-         fullName, lookingForAJob, lookingForAJobDescription, photos,
+         loading, photos,
          match, id, getProfileThunk, getStatusThunk, postStatusThunk, status
-    }) => {
+     }) => {
         let userId = match.params.userId;
 
         const refreshProfile = () => {
@@ -40,15 +39,11 @@ const ProfileContainer =
                 <div className='profile__bg-img'>
                     <img src={profileBg} alt="profileBg"/>
                 </div>
-                <ProfleInfo aboutMe={aboutMe}
-                            contacts={contacts}
-                            fullName={fullName}
-                            lookingForAJob={lookingForAJob}
-                            lookingForAJobDescription={lookingForAJobDescription}
-                            photos={photos}
-                            status={status}
-                            postStatusThunk={postStatusThunk}
-                            isOwner={isOwner}
+                <ProfleUser
+                    photos={photos}
+                    status={status}
+                    postStatusThunk={postStatusThunk}
+                    isOwner={isOwner}
                 />
                 <ProfilePosts/>
             </div>
@@ -60,18 +55,13 @@ const mapStateToProps = (
     {
         profileReducer: {
             loading,
-            profile: {aboutMe, contacts, fullName, lookingForAJob, lookingForAJobDescription, photos},
+            profile: {photos},
             status
         },
         authReducer: {id}
     }
 ) => ({
-    aboutMe,
     status,
-    contacts,
-    fullName,
-    lookingForAJob,
-    lookingForAJobDescription,
     photos,
     loading,
     id

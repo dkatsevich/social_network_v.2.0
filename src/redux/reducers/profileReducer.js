@@ -1,4 +1,5 @@
 import {ProfileAPI} from "../../services/serverAPI";
+import {stopSubmit} from "redux-form";
 
 const initialState = {
     loading: true,
@@ -48,6 +49,22 @@ const getProfileThunk = (id) => async (dispatch) => {
     dispatch(changeLoadingStatus(false))
 }
 
+const postProfileInfo = (data) => async (dispatch, getState) => {
+    try {
+        const myId = getState().authReducer.id;
+        const res = await ProfileAPI.putProfile(data);
+        if (res.data.resultCode === 0) {
+            dispatch(getProfileThunk(myId))
+        } else {
+            dispatch(stopSubmit('profile-info', {_error: res.data.messages[0]}))
+        }
+    } catch (e) {
+        dispatch(stopSubmit('profile-info', {_error: 'Something goes wrong, please refresh page)'}))
+        return Promise.reject(e)
+    }
+}
+
+
 const getStatusThunk = (id) => async (dispatch) => {
     const res = await ProfileAPI.getStatus(id);
     if (res.status === 200) {
@@ -77,4 +94,5 @@ export {
     getProfileThunk,
     postStatusThunk,
     postPhotoThunk,
+    postProfileInfo,
 }

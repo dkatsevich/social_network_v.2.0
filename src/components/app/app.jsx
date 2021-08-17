@@ -12,6 +12,7 @@ import store from "../../redux/store";
 import {compose} from "redux";
 import {initializeApp} from "../../redux/reducers/appReducer";
 import Spinner from "../spinner/spinner";
+import Users from "../users/users";
 
 
 class App extends React.Component {
@@ -32,6 +33,7 @@ class App extends React.Component {
                     <Route exact path='/' render={() => <div>H</div>}/>
                     <Route path='/profile/:userId?' component={ProfileContainer}/>
                     <Route path='/login' component={Login}/>
+                    <Route path='/users' component={Users}/>
                 </div>
             </div>
         )

@@ -12,6 +12,9 @@ const ProfileAPI = {
     getProfile(id) {
         return instance.get(`/profile/${id}`);
     },
+    putProfile(data) {
+        return instance.put(`/profile`, data);
+    },
     getStatus(id) {
         return instance.get(`/profile/status/${id}`);
     },
@@ -28,7 +31,6 @@ const ProfileAPI = {
         });
     }
 }
-
 
 const AuthAPI = {
     authMe() {
@@ -48,8 +50,21 @@ const SecurityAPI = {
     }
 }
 
+const UsersAPI = {
+    getUsers(page, pageSize) {
+        return instance.get(`/users?page=${page}&count=${pageSize}`);
+    },
+    followUser(id) {
+        return instance.post(`/follow/${id}`);
+    },
+    unFollowUser(id) {
+        return instance.delete(`/follow/${id}`);
+    },
+}
+
 export {
     ProfileAPI,
     AuthAPI,
     SecurityAPI,
+    UsersAPI,
 }
