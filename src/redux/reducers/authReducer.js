@@ -1,4 +1,5 @@
 import {AuthAPI, SecurityAPI} from "../../services/serverAPI";
+import {stopSubmit} from "redux-form";
 
 const initialState = {
     id: null,
@@ -36,7 +37,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 const putUserData = (payload) => ({type: "PUT_USER_DATA", payload})
-const putCaptchaUrl = (payload) => ({type: "PUT_USER_DATA", payload})
+const putCaptchaUrl = (payload) => ({type: "PUT_CAPTCHA_URL", payload})
 const deleteUserData = () => ({type: "DELETE_USER_DATA"});
 
 const authMeThunk = () => async (dispatch) => {
@@ -55,8 +56,9 @@ const loginMeThunk = (data) => async (dispatch) => {
         dispatch(authMeThunk())
     } else {
         if (res.data.resultCode === 10) {
-            dispatch(getCaptchaThunk())
+            dispatch(getCaptchaThunk());
         }
+        dispatch(stopSubmit('login', {_error: res.data.messages[0]}))
     }
 }
 

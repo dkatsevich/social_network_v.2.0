@@ -11,6 +11,21 @@ const instance = axios.create({
 const ProfileAPI = {
     getProfile(id) {
         return instance.get(`/profile/${id}`);
+    },
+    getStatus(id) {
+        return instance.get(`/profile/status/${id}`);
+    },
+    putStatus(status) {
+        return instance.put(`/profile/status`, status);
+    },
+    putPhoto(img) {
+        const formData = new FormData();
+        formData.append('image', img);
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 }
 

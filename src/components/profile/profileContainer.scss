@@ -21,6 +21,36 @@
     width: 150px;
     height: 150px;
     position: relative;
+    label {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: #000;
+      color: #fff;
+      opacity: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+      transition: all .3s ease;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    input {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 0;
+      opacity: 0;
+      cursor: pointer;
+
+    }
     img {
       position: absolute;
       top: 0;
@@ -50,11 +80,26 @@
     font-weight: 400;
     div {
       margin-right: 20px;
+      margin-bottom: 5px;
     }
     span {
-      margin-top: 5px;
       font-weight: 500;
       max-width: 300px;
+    }
+    input {
+      width: 200px;
+      padding: 10px;
+      background: #e2e2e2;
+      border: 1px solid #898989;
+      border-radius: 5px;
+    }
+    button {
+      background: #318bbe;
+      padding: 5px 10px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 7px;
     }
   }
   &__contacts {}

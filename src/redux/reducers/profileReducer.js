@@ -1,7 +1,9 @@
 import {ProfileAPI} from "../../services/serverAPI";
 
 const initialState = {
-    loading: true
+    loading: true,
+    profile: {},
+    status: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -14,7 +16,17 @@ const profileReducer = (state = initialState, action) => {
         case "PUT_PROFILE_DATA":
             return {
                 ...state,
-                ...action.payload,
+                profile: {...action.payload},
+            }
+        case "PUT_STATUS":
+            return {
+                ...state,
+                status: action.status,
+            }
+        case "PUT_PHOTO_URL":
+            return {
+                ...state,
+                profile: {...state.profile, photos: {...action.payload}}
             }
         default:
             return state
@@ -23,7 +35,8 @@ const profileReducer = (state = initialState, action) => {
 
 const putProfileData = (payload) => ({type: "PUT_PROFILE_DATA", payload})
 const changeLoadingStatus = (loading) => ({type: "CHANGE_LOADING_STATUS", loading})
-// const deleteUserData = () => ({type: "DELETE_USER_DATA"});
+const putStatus = (status) => ({type: "PUT_STATUS", status});
+const putPhotoUrl = (payload) => ({type: "PUT_PHOTO_URL", payload});
 
 
 const getProfileThunk = (id) => async (dispatch) => {
@@ -35,20 +48,33 @@ const getProfileThunk = (id) => async (dispatch) => {
     dispatch(changeLoadingStatus(false))
 }
 
-// const getCaptchaThunk = () => async (dispatch) => {
-//     const res = await SecurityAPI.getCaptchaUrl();
-//     dispatch(putCaptchaUrl({captchaUrl: res.data.url}))
-// }
-//
-// const logoutMeThunk = () => async (dispatch) => {
-//     const res = await AuthAPI.logoutMe();
-//     if (res.data.resultCode === 0) {
-//         dispatch(authMeThunk())
-//     }
-// }
+const getStatusThunk = (id) => async (dispatch) => {
+    const res = await ProfileAPI.getStatus(id);
+    if (res.status === 200) {
+        dispatch(putStatus(res.data))
+    }
+}
+
+const postStatusThunk = (status) => async (dispatch) => {
+    const res = await ProfileAPI.putStatus(status);
+    if (res.status === 200) {
+        dispatch(putStatus(res.data))
+    }
+}
+
+const postPhotoThunk = (photo) => async (dispatch) => {
+    const res = await ProfileAPI.putPhoto(photo);
+    if (res.data.resultCode === 0) {
+        dispatch(putPhotoUrl(res.data.data.photos))
+    }
+}
+
 
 export default profileReducer;
 
 export {
+    getStatusThunk,
     getProfileThunk,
+    postStatusThunk,
+    postPhotoThunk,
 }

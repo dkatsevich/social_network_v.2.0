@@ -4,6 +4,8 @@ import './login.scss'
 import {loginMeThunk} from "../../redux/reducers/authReducer";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {maxLengthCreator, required} from "../../validation/validation";
+import {Input} from "../formControls/formControls";
 
 const Login = ({loginMeThunk, captchaUrl, isAuth}) => {
     const onSubmitLogin = (formData) => {
@@ -20,23 +22,27 @@ const Login = ({loginMeThunk, captchaUrl, isAuth}) => {
     )
 }
 
-const LoginForm = ({handleSubmit, captchaUrl}) => {
+const maxLength30 = maxLengthCreator(30);
+
+const LoginForm = ({handleSubmit, captchaUrl, error}) => {
     return (
         <form onSubmit={handleSubmit} className="login__form">
             <div className="login__input">
                 <Field
                     name='email'
-                    component='input'
+                    component={Input}
                     type='text'
                     placeholder='Your email...'
+                    validate={[required, maxLength30]}
                 />
             </div>
             <div className="login__input">
                 <Field
                     name='password'
-                    component='input'
+                    component={Input}
                     type='text'
                     placeholder='Your password...'
+                    validate={[required, maxLength30]}
                 />
             </div>
             <label className="login__checkbox">
@@ -62,6 +68,9 @@ const LoginForm = ({handleSubmit, captchaUrl}) => {
             <div className="login__btn">
                 <button>Login</button>
             </div>
+            {error && <div className="login__error">
+                <span>{error}</span>
+            </div>}
         </form>
     )
 }
