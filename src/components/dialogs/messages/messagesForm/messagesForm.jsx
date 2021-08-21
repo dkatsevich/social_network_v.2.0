@@ -1,7 +1,7 @@
 import React from 'react';
 import './messagesForm.scss';
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, mustRequire} from "../../../utils/validation";
+import {maxLengthCreator, required} from "../../../../validation/validation";
 import {Input} from "../../../formControls/formControls";
 
 const maxLength150 = maxLengthCreator(150)
@@ -14,7 +14,7 @@ const AddMessageForm = (props) => {
                    name={'message'}
                    className="message-form__input"
                    placeholder='Type here...'
-                   validate={[mustRequire, maxLength150]}
+                   validate={[required, maxLength150]}
             />
             <button className="message-form__button">Send Message</button>
         </form>

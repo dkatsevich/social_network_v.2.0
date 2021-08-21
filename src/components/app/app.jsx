@@ -13,6 +13,8 @@ import {compose} from "redux";
 import {initializeApp} from "../../redux/reducers/appReducer";
 import Spinner from "../spinner/spinner";
 import Users from "../users/users";
+import Dialogs from "../dialogs/dialogs";
+
 
 
 class App extends React.Component {
@@ -30,9 +32,10 @@ class App extends React.Component {
                 <Header/>
                 <NavBar/>
                 <div className='content'>
-                    <Route exact path='/' render={() => <div>H</div>}/>
+                    <Route exact path='/' render={() => <div className='main'>Welcome to My Social Network <span>Soon this page will be developed)</span></div>}/>
                     <Route path='/profile/:userId?' component={ProfileContainer}/>
                     <Route path='/login' component={Login}/>
+                    <Route path='/dialogs' component={Dialogs}/>
                     <Route path='/users' component={Users}/>
                 </div>
             </div>

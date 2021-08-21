@@ -1,5 +1,5 @@
 import React from 'react';
-import me from './../../../images/friend1.png';
+import me from './../myavatar.png';
 import './messages.scss';
 import {connect} from "react-redux";
 import AddMessageForm from "./messagesForm/messagesForm";

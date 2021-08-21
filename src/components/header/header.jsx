@@ -3,15 +3,15 @@ import logo from '../../images/logo.png';
 import logoDescr from '../../images/logo-descr.svg';
 import './header.scss'
 import {connect} from "react-redux";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {logoutMeThunk} from "../../redux/reducers/authReducer";
 
 const Header = ({login, isAuth, id, logoutMeThunk}) => {
     return (
         <header className="header">
-            <div className="header__logo">
+            <Link to='/' className="header__logo">
                 <img src={logo} alt=""/>
-            </div>
+            </Link>
             <img className="header__descr" src={logoDescr} alt=""/>
             <div className="header__auth">
                 {isAuth ?

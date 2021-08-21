@@ -1,0 +1,29 @@
+import React from 'react';
+import DialogsItem from "./dialogsItem/dialogsItem";
+import './dialogs.scss'
+import Messages from "./messages/messages";
+import withAuthRedirect from "../../hoc/withToAuthRedirect";
+import {compose} from "redux";
+
+const Dialogs = () => {
+    return (
+        <div className="dialogs">
+            <div className="dialogs__title">DIALOGS (Currently under development)</div>
+            <div className="dialogs__wrapper">
+                <div className="dialogs-items">
+                    <DialogsItem status='online' name="Andrew"/>
+                    <DialogsItem status='offline' name='Viktor'/>
+                    <DialogsItem status='online' name="Andrew"/>
+                    <DialogsItem status='offline' name='Viktor'/>
+                    <DialogsItem status='online' name="Andrew"/>
+                    <DialogsItem status='offline' name='Viktor'/>
+                </div>
+                <Messages/>
+            </div>
+        </div>
+    )
+}
+
+export default compose(
+    withAuthRedirect
+)(Dialogs);
